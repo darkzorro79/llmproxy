@@ -1,0 +1,8 @@
+__pycache__
+**/__pycache__
+*.py[cod]
+data
+config.toml
+.git
+.venv
+tests

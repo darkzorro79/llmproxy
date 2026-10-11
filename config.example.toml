@@ -1,0 +1,46 @@
+# Скопируйте в config.toml и подставьте свой секрет:
+#   python3 -m llmproxy init --config config.toml
+#
+# Клиенты резолвят chatgpt/openai/anthropic/claude в адрес этой машины.
+# На самой машине DNS остаётся настоящим: шлюз только смотрит SNI и прокидывает TCP.
+
+[listen]
+enroll_host = "0.0.0.0"
+enroll_port = 61150
+proxy_host = "0.0.0.0"
+proxy_port = 443
+
+[enroll]
+secret = "change-me"
+ttl_days = 30
+
+[allowlist]
+path = "data/allowlist.json"
+permanent = [
+  "91.219.24.0/22",
+  "31.173.214.149/32",
+
+]
+
+[proxy]
+upstream_port = 443
+hello_timeout = 5
+connect_timeout = 10
+deny_ips = []
+allow_private_upstreams = false
+hosts = [
+  "chatgpt.com",
+  "*.chatgpt.com",
+  "openai.com",
+  "*.openai.com",
+  "oaistatic.com",
+  "*.oaistatic.com",
+  "oaiusercontent.com",
+  "*.oaiusercontent.com",
+  "anthropic.com",
+  "*.anthropic.com",
+  "claude.ai",
+  "*.claude.ai",
+  "claude.com",
+  "*.claude.com",
+]
